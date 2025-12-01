@@ -1,70 +1,301 @@
-# Getting Started with Create React App
+# COMP3123 Assignment 2 - Frontend (React Application)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Student Name:** Parsa Mollahoseini  
+**Student ID:** 101410911
 
-## Available Scripts
+## 📱 Frontend Overview
 
-In the project directory, you can run:
+React-based employee management dashboard with Material-UI design, featuring user authentication, employee CRUD operations, file uploads, and search functionality.
 
-### `npm start`
+## 🚀 Technology Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React** 18.x
+- **Material-UI (MUI)** - Professional UI components
+- **TanStack Query** (React Query) - Server state management
+- **Axios** - HTTP client
+- **React Router DOM** - Client-side routing
+- **React Context API** - Global authentication state
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📁 Project Structure
+```
+frontend/
+├── public/
+│   ├── index.html
+│   └── favicon.ico
+│
+├── src/
+│   ├── pages/
+│   │   ├── Login.jsx           # Login page
+│   │   ├── Signup.jsx          # User registration
+│   │   └── Dashboard.jsx       # Main employee list
+│   │
+│   ├── components/
+│   │   ├── PrivateRoute.jsx    # Protected route wrapper
+│   │   ├── EmployeeForm.jsx    # Add/Edit employee modal
+│   │   └── EmployeeDetails.jsx # View employee modal
+│   │
+│   ├── services/
+│   │   ├── api.js              # Axios instance with interceptors
+│   │   └── authService.js      # API service functions
+│   │
+│   ├── context/
+│   │   └── AuthContext.jsx     # Authentication context
+│   │
+│   ├── App.js                  # Main app with routing
+│   └── index.js                # Entry point
+│
+├── Dockerfile                  # Docker container config
+├── .dockerignore              # Docker ignore rules
+├── package.json
+└── .env                       # Environment variables
+```
 
-### `npm test`
+## ✨ Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Authentication
+- ✅ User signup with validation
+- ✅ User login with JWT tokens
+- ✅ Logout functionality
+- ✅ Protected routes
+- ✅ Persistent login (localStorage)
 
-### `npm run build`
+### Employee Management
+- ✅ List all employees in a table
+- ✅ Add new employee with profile picture upload
+- ✅ View employee details in modal
+- ✅ Update employee information
+- ✅ Delete employee with confirmation
+- ✅ Search by department and position
+- ✅ Avatar display for profile pictures
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### UI/UX Features
+- ✅ Material-UI design system
+- ✅ Responsive layout
+- ✅ Loading states with spinners
+- ✅ Error handling with alerts
+- ✅ Form validation
+- ✅ Professional table design
+- ✅ Modal dialogs
+- ✅ File upload preview
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🔧 Installation & Setup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+- Node.js 18+
+- npm or yarn
 
-### `npm run eject`
+### Install Dependencies
+```bash
+npm install --legacy-peer-deps
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Environment Variables
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create a `.env` file:
+```env
+REACT_APP_API_URL=http://localhost:4000/api/v1
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+For Docker deployment:
+```env
+REACT_APP_API_URL=http://localhost:4000/api/v1
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Run Development Server
+```bash
+npm start
+```
 
-## Learn More
+Application runs at: `http://localhost:3000`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Build for Production
+```bash
+npm run build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🐳 Docker Deployment
 
-### Code Splitting
+### Build Docker Image
+```bash
+docker build -t employee-frontend .
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Run Container
+```bash
+docker run -p 3000:3000 employee-frontend
+```
 
-### Analyzing the Bundle Size
+### With Docker Compose (Recommended)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+See parent directory's `docker-compose.yml`
 
-### Making a Progressive Web App
+## 📡 API Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Axios Configuration
 
-### Advanced Configuration
+The app uses an Axios instance with:
+- Base URL from environment variables
+- Request interceptor to add JWT tokens
+- Response interceptor for 401 error handling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### API Endpoints Used
 
-### Deployment
+#### Authentication
+- `POST /user/signup` - Register new user
+- `POST /user/login` - Login user
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### Employees
+- `GET /emp/employees` - Get all employees
+- `GET /emp/employees/:id` - Get employee by ID
+- `POST /emp/employees` - Create employee (FormData with file)
+- `PUT /emp/employees/:id` - Update employee (FormData with file)
+- `DELETE /emp/employees?eid=:id` - Delete employee
+- `GET /emp/employees/search?department=X&position=Y` - Search
 
-### `npm run build` fails to minify
+## 🎨 UI Components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Pages
+
+**Login.jsx**
+- Email and password fields
+- Form validation
+- Error messages
+- Link to signup
+
+**Signup.jsx**
+- Username, email, password fields
+- Password confirmation
+- Client-side validation
+- Success redirect
+
+**Dashboard.jsx**
+- AppBar with logout
+- Search filters (department, position)
+- Employee table with actions
+- Add Employee button
+- View/Edit/Delete modals
+
+### Components
+
+**EmployeeForm.jsx**
+- Create/Update employee
+- File upload with preview
+- Form validation
+- Material-UI Grid layout
+
+**EmployeeDetails.jsx**
+- Read-only employee view
+- Avatar display
+- Formatted data display
+
+**PrivateRoute.jsx**
+- Route protection
+- Authentication check
+- Redirect to login
+
+## 🔐 Authentication Flow
+
+1. User logs in → JWT token received
+2. Token stored in localStorage
+3. Token added to all API requests (Authorization header)
+4. Protected routes check authentication
+5. 401 errors → Redirect to login
+
+## 📦 Key Dependencies
+```json
+{
+  "react": "^18.3.1",
+  "react-router-dom": "^6.28.0",
+  "@mui/material": "^6.1.9",
+  "@mui/icons-material": "^6.1.9",
+  "@tanstack/react-query": "^5.62.7",
+  "axios": "^1.7.9",
+  "@emotion/react": "^11.14.0",
+  "@emotion/styled": "^11.14.0"
+}
+```
+
+## 🎯 Design Decisions
+
+### Why Material-UI?
+- Professional, consistent design system
+- Responsive components out of the box
+- Accessibility built-in
+- Google Material Design standards
+
+### Why TanStack Query?
+- Automatic caching and refetching
+- Loading and error states
+- Cache invalidation
+- Optimistic updates
+
+### Why Context API?
+- Simple global authentication state
+- Avoid prop drilling
+- Built-in React solution
+
+## 🧪 Testing the App
+
+1. **Signup Flow:**
+    - Go to http://localhost:3000
+    - Click "Sign Up"
+    - Fill form and submit
+    - Redirected to login
+
+2. **Login Flow:**
+    - Enter credentials
+    - Should see dashboard
+
+3. **Add Employee:**
+    - Click "Add Employee"
+    - Fill form, upload image
+    - Submit and verify in table
+
+4. **Search:**
+    - Use department/position filters
+    - Verify filtered results
+
+5. **Edit/Delete:**
+    - Click actions on any employee
+    - Verify updates/deletions
+
+## 🐛 Troubleshooting
+
+### CORS Errors
+- Ensure backend is running on port 4000
+- Check REACT_APP_API_URL in .env
+
+### Authentication Issues
+- Clear localStorage
+- Check JWT token validity
+- Verify backend is running
+
+### File Upload Not Working
+- Check backend upload middleware
+- Verify multipart/form-data content type
+- Check file size limits
+
+## 📝 Code Quality
+
+- ✅ Modular component structure
+- ✅ Separation of concerns (services, components, pages)
+- ✅ Reusable components
+- ✅ Error handling
+- ✅ Loading states
+- ✅ Clean code practices
+
+## 🚀 Future Enhancements
+
+- [ ] Unit tests with Jest
+- [ ] E2E tests with Cypress
+- [ ] Dark mode support
+- [ ] Advanced filtering
+- [ ] Pagination
+- [ ] Employee export (CSV/PDF)
+- [ ] Profile picture cropping
+
+---
+
+**Part of:** COMP3123 Assignment 2  
+**Date:** November 2025  
+**Backend Repository:** ../backend
